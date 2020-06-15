@@ -196,7 +196,7 @@ for params_set in config['cases']:
     verbose_print(f'{algorithm} algorithm: {len(libs) * len(cases)} case(s),'
                   f' {len(params_set["dataset"])} dataset(s)\n')
 
-    dataset_root = args.dataset_root + '/'
+    dataset_root = os.path.abspath(args.dataset_root) + '/'
     for dataset in params_set['dataset']:
         if dataset['source'] in ['csv', 'npy']:
             paths = f'--file-X-train {dataset_root + dataset["training"]["x"]}'
