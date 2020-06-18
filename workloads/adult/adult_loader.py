@@ -62,7 +62,7 @@ def adult(root_dir=None):
     filename_adult_x_test = os.path.join(dataset_dir, 'adult_x_test.csv')
     filename_adult_y_test = os.path.join(dataset_dir, 'adult_y_test.csv')
 
-    X, y = fetch_openml(name='Klaverjas2018', return_X_y=True, as_frame=True)
+    X, y = fetch_openml(name='Klaverjas2018', return_X_y=True, as_frame=True, data_home=dataset_dir)
     print(X.shape, y.shape)
 
     y = y.cat.codes

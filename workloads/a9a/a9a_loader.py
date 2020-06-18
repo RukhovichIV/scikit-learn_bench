@@ -47,7 +47,7 @@ def a9a(root_dir=None):
     filename_a9a_x_test = os.path.join(dataset_dir, 'a9a_x_test.csv')
     filename_a9a_y_test = os.path.join(dataset_dir, 'a9a_y_test.csv')
 
-    X, y = fetch_openml(name='a9a', return_X_y=True, as_frame=False)
+    X, y = fetch_openml(name='a9a', return_X_y=True, as_frame=False, data_home=dataset_dir)
     X = pd.DataFrame(X.todense())
     y = pd.DataFrame(y)
 

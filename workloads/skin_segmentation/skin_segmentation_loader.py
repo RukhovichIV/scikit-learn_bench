@@ -62,7 +62,7 @@ def skin_segmentation(root_dir=None):
     filename_skin_segmentation_x_test = os.path.join(dataset_dir, 'skin_segmentation_x_test.csv')
     filename_skin_segmentation_y_test = os.path.join(dataset_dir, 'skin_segmentation_y_test.csv')
 
-    X, y = fetch_openml(name='skin-segmentation', return_X_y=True, as_frame=True)
+    X, y = fetch_openml(name='skin-segmentation', return_X_y=True, as_frame=True, data_home=dataset_dir)
     print(X.shape, y.shape)
     y = y.astype(int)
     y[y == 2] = 0
