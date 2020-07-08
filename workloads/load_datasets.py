@@ -24,12 +24,14 @@ sys.path.append("gisette")
 sys.path.append("ijcnn")
 sys.path.append("skin_segmentation")
 sys.path.append("adult")
+sys.path.append("connect")
 
 from a9a_loader import a9a
 from gisette_loader import gisette
 from ijcnn_loader import ijcnn
 from skin_segmentation_loader import skin_segmentation
 from adult_loader import adult
+from connect_loader import connect
 
 dataset_loaders = {
     "a9a": a9a,
@@ -37,6 +39,7 @@ dataset_loaders = {
     "ijcnn": ijcnn,
     "skin_segmentation": skin_segmentation,
     "adult": adult,
+    "connect": connect,
 }
 
 if __name__ == '__main__':
