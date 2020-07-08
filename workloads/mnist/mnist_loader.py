@@ -65,7 +65,7 @@ def mnist(root_dir=None):
 
     X, y = fetch_openml(name='mnist_784', return_X_y=True, as_frame=True, data_home=dataset_dir)
     y = y.astype(int)
-    X = X / X.max()
+    X = X / 255
     print(X.shape, y.shape)
 
     print('mnist dataset is downloaded')
