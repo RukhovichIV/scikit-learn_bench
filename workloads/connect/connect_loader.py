@@ -66,6 +66,7 @@ def connect(root_dir=None):
     X, y = fetch_openml(name='connect-4', return_X_y=True, as_frame=False, data_home=dataset_dir)
     X = pd.DataFrame(X.todense())
     y = pd.DataFrame(y)
+    y = y.astype(int)
 
     print(X.shape, y.shape)
 
