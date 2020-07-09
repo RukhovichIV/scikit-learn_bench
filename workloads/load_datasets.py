@@ -27,6 +27,7 @@ sys.path.append("adult")
 sys.path.append("connect")
 sys.path.append("mnist")
 sys.path.append("sensit")
+sys.path.append("covertype")
 
 from a9a_loader import a9a
 from gisette_loader import gisette
@@ -36,6 +37,7 @@ from adult_loader import adult
 from connect_loader import connect
 from mnist_loader import mnist
 from sensit_loader import sensit
+from covertype_loader import covertype
 
 dataset_loaders = {
     "a9a": a9a,
@@ -46,6 +48,7 @@ dataset_loaders = {
     "connect": connect,
     "mnist": mnist,
     "sensit": sensit,
+    "covertype": covertype,
 }
 
 if __name__ == '__main__':
