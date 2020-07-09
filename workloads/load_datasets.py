@@ -26,6 +26,7 @@ sys.path.append("skin_segmentation")
 sys.path.append("adult")
 sys.path.append("connect")
 sys.path.append("mnist")
+sys.path.append("sensit")
 
 from a9a_loader import a9a
 from gisette_loader import gisette
@@ -34,6 +35,7 @@ from skin_segmentation_loader import skin_segmentation
 from adult_loader import adult
 from connect_loader import connect
 from mnist_loader import mnist
+from sensit_loader import sensit
 
 dataset_loaders = {
     "a9a": a9a,
@@ -43,6 +45,7 @@ dataset_loaders = {
     "adult": adult,
     "connect": connect,
     "mnist": mnist,
+    "sensit": sensit,
 }
 
 if __name__ == '__main__':
