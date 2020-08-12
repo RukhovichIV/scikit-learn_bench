@@ -9,7 +9,7 @@ from bench import (
 import numpy as np
 from cuml import KMeans
 import warnings
-
+from sklearn.metrics.cluster import davies_bouldin_score
 
 warnings.filterwarnings('ignore', category=FutureWarning)
 parser = argparse.ArgumentParser(description='cuML K-means benchmark')
@@ -27,8 +27,10 @@ params = parse_args(parser, prefix='cuml', loop_types=('fit', 'predict'))
 # Load and convert generated data
 X_train, X_test, _, _ = load_data(params)
 
+if params.filei == 'k-means++':
+    X_init = 'k-means++'
 # Load initial centroids from specified path
-if params.filei is not None:
+elif params.filei is not None:
     X_init = np.load(params.filei).astype(params.dtype)
     params.n_clusters = X_init.shape[0]
 # or choose random centroids from training data
@@ -57,15 +59,22 @@ def kmeans_fit(X):
 
 # Time fit
 fit_time, kmeans = measure_function_time(kmeans_fit, X_train, params=params)
-train_inertia = float(kmeans.inertia_)
+
+print('n_iter_: ', kmeans.n_iter_)
+
+print('acc_train ', davies_bouldin_score(X_train, train_predict))
+acc_train = davies_bouldin_score(X_train, train_predict)
 
 # Time predict
 predict_time, _ = measure_function_time(kmeans.predict, X_test, params=params)
-test_inertia = float(kmeans.inertia_)
+
+acc_test = davies_bouldin_score(X_test, test_inertia)
+print('acc_test ', acc_test)
 
 print_output(library='cuml', algorithm='kmeans',
              stages=['training', 'prediction'], columns=columns,
              params=params, functions=['KMeans.fit', 'KMeans.predict'],
-             times=[fit_time, predict_time], accuracy_type='inertia',
-             accuracies=[train_inertia, test_inertia], data=[X_train, X_test],
+             times=[fit_time, predict_time], accuracy_type='davies_bouldin_score',
+             accuracies=[acc_train, acc_test], data=[X_train, X_test],
              alg_instance=kmeans)
+

@@ -221,6 +221,10 @@ for params_set in config['cases']:
             else:
                 gen_args.seed = 777
 
+
+            # default values
+            gen_args.clusters = 10
+
             gen_args.type = dataset['type']
             gen_args.samples = dataset['training']['n_samples']
             gen_args.features = dataset['n_features']
