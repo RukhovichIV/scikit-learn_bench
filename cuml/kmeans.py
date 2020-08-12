@@ -59,6 +59,7 @@ def kmeans_fit(X):
 
 # Time fit
 fit_time, kmeans = measure_function_time(kmeans_fit, X_train, params=params)
+train_predict = kmeans.predict(X_train)
 
 print('n_iter_: ', kmeans.n_iter_)
 
