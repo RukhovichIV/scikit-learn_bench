@@ -4,7 +4,7 @@
 
 import argparse
 from bench import (
-    parse_args, measure_function_time, load_data, print_output
+    parse_args, measure_function_time, load_data, print_output, convert_to_numpy
 )
 import numpy as np
 from cuml import KMeans
@@ -61,15 +61,21 @@ def kmeans_fit(X):
 fit_time, kmeans = measure_function_time(kmeans_fit, X_train, params=params)
 train_predict = kmeans.predict(X_train)
 
+# Time predict
+predict_time, test_predict = measure_function_time(kmeans.predict, X_test, params=params)
+
 print('n_iter_: ', kmeans.n_iter_)
 
-print('acc_train ', davies_bouldin_score(X_train, train_predict))
-acc_train = davies_bouldin_score(X_train, train_predict)
+X_train_host = convert_to_numpy(X_train)
+train_predict_host = convert_to_numpy(train_predict)
+print('acc_train ', davies_bouldin_score(X_train_host, train_predict_host))
+acc_train = davies_bouldin_score(X_train_host, train_predict_host)
 
-# Time predict
-predict_time, _ = measure_function_time(kmeans.predict, X_test, params=params)
+X_test_host = convert_to_numpy(X_test)
+test_predict_host = convert_to_numpy(test_predict)
 
-acc_test = davies_bouldin_score(X_test, test_inertia)
+acc_test = davies_bouldin_score(X_test_host, test_predict_host)
+
 print('acc_test ', acc_test)
 
 print_output(library='cuml', algorithm='kmeans',

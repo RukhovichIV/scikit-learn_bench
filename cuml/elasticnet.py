@@ -6,7 +6,7 @@ import argparse
 from bench import (
     parse_args, measure_function_time, load_data, print_output, rmse_score
 )
-from sklearn.linear_model import ElasticNet
+from cuml.linear_model import ElasticNet
 
 parser = argparse.ArgumentParser(description='scikit-learn elastic-net regression '
                                              'benchmark')
@@ -30,7 +30,7 @@ print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 
 # Create our regression object
 regr = ElasticNet(fit_intercept=params.fit_intercept, l1_ratio=params.l1_ratio, alpha=params.alpha,
-                        tol=params.tol, max_iter=params.maxiter, copy_X=False)
+                        tol=params.tol, max_iter=params.maxiter)
 
 columns = ('batch', 'arch', 'prefix', 'function', 'threads', 'dtype', 'size',
            'time')
@@ -40,16 +40,16 @@ fit_time, _ = measure_function_time(regr.fit, X_train, y_train, params=params)
 
 print('y_train.shape: ', y_train.shape)
 print('X_train.shape: ', X_train.shape)
-print('iter: ', regr.n_iter_)
+# print('iter: ', regr.n_iter_)
 
 # Time predict
 predict_time, pred_train = measure_function_time(regr.predict, X_train, params=params)
 
 train_rmse = rmse_score(pred_train, y_train)
 pred_test = regr.predict(X_test)
-test_rmse = rmse_score(yp, y_test)
+test_rmse = rmse_score(pred_test, y_test)
 
-print_output(library='sklearn', algorithm='elastic-net',
+print_output(library='cuml', algorithm='elastic-net',
              stages=['training', 'prediction'], columns=columns,
              params=params, functions=['ElasticNet.fit', 'ElasticNet.predict'],
              times=[fit_time, predict_time], accuracy_type='rmse',

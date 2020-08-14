@@ -41,14 +41,12 @@ import numpy as np
 print(np.unique(labels))
 print(labels[:10])
 
-print(davies_bouldin_score(X, labels))
-
 print(X.shape)
 
 params.n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-
+acc = davies_bouldin_score(X, labels)
 
 print_output(library='sklearn', algorithm='dbscan', stages=['training'],
              columns=columns, params=params, functions=['DBSCAN'],
-             times=[time], accuracies=[None], accuracy_type=None, data=[X],
+             times=[time], accuracies=[acc], accuracy_type='davies_bouldin_score', data=[X],
              alg_instance=dbscan)

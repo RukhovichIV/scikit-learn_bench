@@ -10,7 +10,7 @@ from sklearn.linear_model import Lasso
 
 parser = argparse.ArgumentParser(description='scikit-learn lasso regression '
                                              'benchmark')
-parser.add_argument('--no-fit-intercept', dest='fit_intercept', default=True,
+parser.add_argument('--no-fit-intercept', dest='fit_intercept', default=False,
                     action='store_false',
                     help="Don't fit intercept (assume data already centered)")
 parser.add_argument('--alpha', dest='alpha', type=float, default=1.0,
@@ -49,7 +49,7 @@ test_rmse = rmse_score(pred_test, y_test)
 
 print_output(library='sklearn', algorithm='lasso',
              stages=['training', 'prediction'], columns=columns,
-             params=params, functions=['ElasticNet.fit', 'ElasticNet.predict'],
+             params=params, functions=['Lasso.fit', 'Lasso.predict'],
              times=[fit_time, predict_time], accuracy_type='rmse',
              accuracies=[train_rmse, test_rmse], data=[X_train, X_test],
              alg_instance=regr)
